@@ -1,0 +1,24 @@
+.add-note {
+    /* border: 0.5px solid rgb(88, 88, 88); */
+    border-radius: 2%;
+    max-width: 100%;
+    /* display: flex; */
+    /* padding: 1% */
+    /* background-color: black; */
+}
+/* div .add-note {
+    border: 0 !important;
+    border-radius: 0 !important;
+} */
+.form-control {
+    /* border: 0.5px solid rgb(88, 88, 88); */
+    border-radius: 0px !important;
+    background-color: rgb(61, 61, 61) !important;
+    color: white !important;
+    border: 0 !important;
+    transition: unset !important;
+    /* border-bottom: 0.5px solid rgb(114, 114, 114) !important ; */
+}
+/* .input {
+    color: white !important;
+} */
