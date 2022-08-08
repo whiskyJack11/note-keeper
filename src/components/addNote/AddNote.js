@@ -14,6 +14,7 @@ const AddNote = (props) => {
 
         if(note.title == '' ){
             setMessage('Title cant be empty');
+            setTimeout(() => setMessage(''), 2000)
             return
         }
         const noteData = note;
@@ -36,7 +37,7 @@ const AddNote = (props) => {
             console.log("IN HERE");
             setNote({title: '', tagline: '', note: '', isPinned: false});
             setMessage('Note Added Succesfully');
-            props.fetchNotes();
+//             props.fetchNotes();
             setNoteAdded(true);
             setTimeout(() => setMessage(''), 2000)
         })
