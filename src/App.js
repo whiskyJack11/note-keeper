@@ -5,14 +5,14 @@ import Header from './components/header/Header';
 import AddNote from './components/addNote/AddNote';
 import Notes from './components/notes/Notes';
 import { useEffect, useState } from 'react';
-// import { database } from './Firebase';
+
+import { database } from './Firebase';
 import EditModal from './components/editModal/EditModal';
 
 
 
 function App() {
-  const [note, setNote] = useState({});
-
+  
   return (
     <div className="App App-header">
       <Header />       
@@ -21,7 +21,7 @@ function App() {
           <AddNote />
         </div>
         <div className="col-lg-6 text-start">
-          <h3>Notes</h3>
+          <h3 >Notes</h3>
           <Notes />
         </div>
       </div>

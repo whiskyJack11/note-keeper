@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
-
+const { getFirestore } = require("firebase/firestore");
 
 const { initializeApp } = require("firebase/app");
-const { getDatabase, set, ref, push } = require("firebase/database");
+const { getDatabase,  set, ref, push } = require("firebase/database");
+
  // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,6 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+console.log(database)
 // const notesListRef = ref(database, 'notes');
 // const newNoteRef = push(notesListRef);
 

@@ -22,3 +22,7 @@
 /* .input {
     color: white !important;
 } */
+.sticky {
+    position: sticky;
+    top: 5%;
+}

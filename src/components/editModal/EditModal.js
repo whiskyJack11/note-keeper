@@ -32,7 +32,7 @@ const EditModal = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                <AddNote handleModalClose={props.closeModal} note={props.note} noteKey={props.noteKey} editMode={props.editMode} />
+                <AddNote fetchNotes={props.notesFetch} handleModalClose={props.closeModal} note={props.note} noteKey={props.noteKey} editMode={props.editMode} />
                 </Box>
             </Modal>
         </div>

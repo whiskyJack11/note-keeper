@@ -2,27 +2,49 @@ import { useEffect, useState, useSyncExternalStore } from 'react';
 import './styles.css';
 import {database}   from '../../Firebase';
 import { set, ref, push, child, update } from 'firebase/database';
+import { collection, addDoc } from '@firebase/firestore';
 
 const AddNote = (props) => {
     const [noteAdded, setNoteAdded] = useState(false);
     const [note, setNote] = useState({ title: '', tagline: '', note: '', isPinned: false});
     const [editNote, setEditNote] = useState({});
+    const [message, setMessage] = useState('');
     
     const addNote = async () => {
 
+        if(note.title == '' ){
+            setMessage('Title cant be empty');
+            return
+        }
         const noteData = note;
+        noteData.createdAt = new Date().toISOString();
+        // const docRef = await addDoc(collection(database, 'notes'), {noteData});
+        // console.log(docRef);
+
+        // setNote({title: '', tagline: '', note: '', isPinned: false});
+        // setMessage('Note Added Succesfully');
+        // setNoteAdded(true);
+        // setTimeout(() => setMessage(''), 2000)
+        
         console.log(noteData);
         const notesListReference = ref(database, 'notes');
         const newNoteReference = push(notesListReference);
+        
 
         await set(newNoteReference, noteData)
         .then((res) => {
             console.log("IN HERE");
-            setNoteAdded(true);
             setNote({title: '', tagline: '', note: '', isPinned: false});
+            setMessage('Note Added Succesfully');
+            props.fetchNotes();
+            setNoteAdded(true);
+            setTimeout(() => setMessage(''), 2000)
         })
         .catch((err) => {
             console.log(err);
+            setNoteAdded(false);
+            setMessage('Some error occured, try again later!!');
+            setTimeout(() => setMessage(''), 2000);
         });
     };
 
@@ -47,8 +69,7 @@ const AddNote = (props) => {
     }
 
     return (
-        // props.editMode ?
-        <div className=" text-start mt-3">
+        <div className="sticky text-start mt-3">
             <h5 className="text-start">{props.editMode ? 'Edit Note' : 'Add Note'}</h5>
             <div className="add-note mb-3">
                 <div className="input input-group-lg mb-2">
@@ -65,35 +86,12 @@ const AddNote = (props) => {
                 <div className="col-lg-3">
                     <button onClick={props.editMode ? updateNote : addNote} className=" btn btn-primary">{props.editMode ? 'Save' : 'Add note'}</button>
                 </div>
-                <div className="col-lg-9">
-                    {props. editMode ? <button onClick={props.handleModalClose}  className=" btn btn-secondary">Cancel</button> : null}
-                </div>
+                {!props.editMode && noteAdded ? <div className="col-lg-9 text-end" style={{color: 'green'}}><p>{message}</p></div> : <div className="col-lg-9 text-end" style={{color: 'red'}}><p>{message}</p></div>}
+                
+                    {props. editMode ? <div className="col-lg-9 mt-1"><button onClick={props.handleModalClose}  className=" btn btn-secondary">Cancel</button></div> : null}
+
             </div>
         </div>
-        // :
-        // <div className=" text-start mt-3">
-        //     <h5 className="text-start">Edit Note</h5>
-        //     <div className="add-note mb-3">
-        //         <div className="input input-group-lg mb-2">
-        //             <input value={props.note.title} onChange={(e) => setNote({...note, title: e.target.value})} placeholder="Title" type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
-        //         </div>
-        //         <div className="input input-group-lg mb-2">
-        //             <input value={props.note.tagline} onChange={(e) => setNote({...note, tagline: e.target.value})} placeholder="Tagline" type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
-        //         </div>
-        //         <div className="input input-group-lg">
-        //             <textarea value={props.note.note} onChange={(e) => setNote({...note, note: e.target.value})} placeholder="Note" type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
-        //         </div>
-        //     </div>
-        //     <div className="row">
-        //         <div className="col-lg-6">
-        //             <button onClick={addNote} className=" btn btn-primary">Add note</button>
-        //         </div>
-        //         <div className="col-lg-6">
-        //             <p></p>
-        //         </div>
-        //     </div>
-        // </div>
-
     )
 }
 export default AddNote;
