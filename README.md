@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# NoteKeeper
+A simple note-keeper app, where user can create notes with title, subject and description, with added functionality to pin or unpin the notes also to delete. For DB, Firebase is used.
+Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
